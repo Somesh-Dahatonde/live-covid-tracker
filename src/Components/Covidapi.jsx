@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import './Table.css';
 
 const Covidapi = () => {
     const [statewise, setStatewise] = useState([]);
@@ -52,25 +53,32 @@ const Covidapi = () => {
     const useStyles = makeStyles({
         table: {
             minWidth: 700,
+            backgroundColor:'#00C1D4'
         },
+        header : {
+            backgroundColor : "#512D6D"
+        }
     });
 
     const classes = useStyles();
 
     return (
         <>
-            <div>
-                <h1>API CALLING </h1>
+            <div className= "Main-container">
+                <h1>Live Delta Tracker </h1>
+             
                 <TableContainer component={Paper}>
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>
-                            <TableRow>
-                            <StyledTableCell >State</StyledTableCell>
-                                <StyledTableCell align="right">Covid Cases </StyledTableCell>
-                                <StyledTableCell align="right">Active </StyledTableCell>
-                                <StyledTableCell align="right">Total Deaths </StyledTableCell>
-                                <StyledTableCell align="right">Total Recovered </StyledTableCell>
+                            <TableRow className={classes.header}>
+                            <StyledTableCell align="center">State</StyledTableCell>
+                                <StyledTableCell align="center"> Total Delta Cases </StyledTableCell>
+                                {/* <StyledTableCell align="center">Active </StyledTableCell> */}
+                                <StyledTableCell align="center">Total Deaths by Delta</StyledTableCell>
+                                <StyledTableCell align="center">Total Recovered </StyledTableCell>
+                                <StyledTableCell align="center"> Data Update Date</StyledTableCell>
                                 
+
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -79,15 +87,15 @@ const Covidapi = () => {
                                     <StyledTableCell  component="th" scope="row">
                                     {data.state}
                                     </StyledTableCell>
-                                    <StyledTableCell  align="right">{data.active}</StyledTableCell>
-                                    <StyledTableCell align="right">{data.confirmed}</StyledTableCell>
-                                    <StyledTableCell align="right">{data.deaths}</StyledTableCell>
-                                    <StyledTableCell align="right">{data.recovered}</StyledTableCell>
-                                    
+                                    <StyledTableCell  className='confirmed-box' align="right">{data.deltaconfirmed}</StyledTableCell>
+                                    <StyledTableCell className='Death-box' align="right">{data.deltadeaths}</StyledTableCell>
+                                    <StyledTableCell className='Recovered-box' align="right">{data.deltarecovered}</StyledTableCell>
+                                    <StyledTableCell align="right">{data.lastupdatedtime}</StyledTableCell>
 
                                 </StyledTableRow>
                              ))} 
                         </TableBody>
+                        
                     </Table>
                 </TableContainer>
             </div>

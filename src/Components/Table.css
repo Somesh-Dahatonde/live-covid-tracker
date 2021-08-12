@@ -1,0 +1,28 @@
+body{
+    background-color: #464660;
+}
+
+.Main-container{
+    margin: 50px;
+   
+}
+
+h1{
+    text-decoration: underline;
+    text-transform: capitalize;
+}
+
+.Death-box{
+    background-color:#F8485E;
+    text-align: center;
+}
+
+.Recovered-box{
+    background-color:rgb(104, 245, 104);
+    
+}
+
+.confirmed-box{
+    background-color: slategray;
+}
+
