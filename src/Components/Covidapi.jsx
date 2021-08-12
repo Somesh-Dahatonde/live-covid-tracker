@@ -1,5 +1,13 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import axios from "axios";
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 const Covidapi = () => {
     const [statewise, setStatewise] = useState([]);
@@ -13,28 +21,82 @@ const Covidapi = () => {
             }
         )
         .then((response) => {
-            // console.log(response);
+            // console.log(response.data.statewise);
             setStatewise(response.data.statewise);
         })
         .catch((error) => {
             console.log(error);
         });
 
+
+
+    const StyledTableCell = withStyles((theme) => ({
+        head: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+        },
+        body: {
+            fontSize: 14,
+        },
+    }))(TableCell);
+
+    const StyledTableRow = withStyles((theme) => ({
+        root: {
+            '&:nth-of-type(odd)': {
+                backgroundColor: theme.palette.action.hover,
+            },
+        },
+    }))(TableRow);
+
+
+    const useStyles = makeStyles({
+        table: {
+            minWidth: 700,
+        },
+    });
+
+    const classes = useStyles();
+
     return (
         <>
             <div>
                 <h1>API CALLING </h1>
-                {statewise.map((item) => {
-                    
-                    return (
-                        <div key={item.id}>
-                            <p>Active Cases {item.active}</p>
-                        </div>
-                    );
-                })}
+                <TableContainer component={Paper}>
+                    <Table className={classes.table} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                            <StyledTableCell >State</StyledTableCell>
+                                <StyledTableCell align="right">Covid Cases </StyledTableCell>
+                                <StyledTableCell align="right">Active </StyledTableCell>
+                                <StyledTableCell align="right">Total Deaths </StyledTableCell>
+                                <StyledTableCell align="right">Total Recovered </StyledTableCell>
+                                
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {statewise.map((data) => (
+                                <StyledTableRow class=" MuiTableRow-hover">
+                                    <StyledTableCell  component="th" scope="row">
+                                    {data.state}
+                                    </StyledTableCell>
+                                    <StyledTableCell  align="right">{data.active}</StyledTableCell>
+                                    <StyledTableCell align="right">{data.confirmed}</StyledTableCell>
+                                    <StyledTableCell align="right">{data.deaths}</StyledTableCell>
+                                    <StyledTableCell align="right">{data.recovered}</StyledTableCell>
+                                    
+
+                                </StyledTableRow>
+                             ))} 
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </div>
         </>
     );
+
+
+
+
 
     //     const getData = async () => {
     //         try{
